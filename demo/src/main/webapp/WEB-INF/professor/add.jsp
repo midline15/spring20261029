@@ -39,6 +39,12 @@
          <div>
             <label>급여 : <input type="text" v-model="pay"></label>
          </div>
+         <div> 학과 : 
+            <select v-model="deptNo">
+                <option value="">::선택::</option>
+                <option v-for="item in deptList" :value="item.deptNo">{{item.dName}}</option>
+            </select>
+         </div>
          <div>
             <button @click="fnAdd">추가</button>
          </div>
@@ -55,7 +61,9 @@
                 profNo: "",
                 name: "",
                 position: "",
-                pay: ""
+                pay: "",
+                deptList: "",
+                deptNo: "",
             };
         },
         methods: {
@@ -67,7 +75,13 @@
                     alert("네자리숫자");
                     return;
                 }
-                let param = {profNo: self.profNo, name: self.name, position: self.position, pay: self.pay};
+                let param = {
+                    profNo: self.profNo, 
+                    name: self.name, 
+                    position: self.position, 
+                    pay: self.pay, 
+                    deptNo: self.deptNo
+                };
                 $.ajax({
                     url: "http://localhost:8080/professor/add.dox",
                     dataType: "json",
@@ -88,11 +102,25 @@
                     type: "POST",
                     data: param,
                     success: function (data) {
-                        if(data.info == null){
-                            alert("사용가능");
+                        if(data.info == null || data.info == undefined){
+                            alert("사용 가능");
                         }else{
                             alert("이미 사용중인 교수번호")
                         }
+                    }
+                });
+            },
+            fnDeptList : function () {
+                let self = this;
+                let param = {};
+                $.ajax({
+                    url: "http://localhost:8080/professor/dept-list.dox",
+                    dataType: "json",
+                    type: "POST",
+                    data: param,
+                    success: function (data) {
+                        console.log(data.deptList);
+                        self.deptList = data.deptList;
                     }
                 });
             }
@@ -100,6 +128,7 @@
         mounted() {
             // 처음 시작할 때 실행되는 부분
             let self = this;
+            self.fnDeptList();
         }
     });
 

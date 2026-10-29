@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.EmpMapper">
+	<select id="selectEmpList" parameterType="hashmap" resultType="com.example.demo.model.Emp">
+		select * from emp
+	</select>
+	
+	<delete id="deleteEmp" parameterType="hashmap">
+		delete from emp where empno = #{empNo}
+	</delete>
+	
+	<insert id="insertEmp" parameterType="hashmap">
+		insert into emp(empno, ename, job, sal)
+		values(#{empNo}, #{eName}, #{job}, #{sal})
+	</insert>
+	
+	<select id="selectEmp" parameterType="hashmap" resultType="com.example.demo.model.Emp">
+		select * from emp where empno = #{empNo}
+	</select>
+	
+</mapper>

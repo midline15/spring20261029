@@ -22,7 +22,7 @@ public class ProfessorService {
 	}
 	
 	public HashMap<String, Object> removeProfessor(HashMap<String, Object> map) {
-		HashMap<String, Object> resultMap = new HashMap();
+		HashMap<String, Object> resultMap = new HashMap<>();
 		professorMapper.deleteProfessor(map);
 		
 		resultMap.put("result", "success");
@@ -30,7 +30,7 @@ public class ProfessorService {
 	}
 
 	public HashMap<String, Object> addProfessor(HashMap<String, Object> map) {
-		HashMap<String, Object> resultMap = new HashMap();
+		HashMap<String, Object> resultMap = new HashMap<>();
 		professorMapper.insertProfessor(map);
 		
 		resultMap.put("result", "success");
@@ -38,11 +38,18 @@ public class ProfessorService {
 	}
 
 	public HashMap<String, Object> getProfessor(HashMap<String, Object> map) {
-		HashMap<String, Object> resultMap = new HashMap();
+		HashMap<String, Object> resultMap = new HashMap<>();
 		
 		resultMap.put("info", professorMapper.selectProfessor(map));
 		resultMap.put("result", "success");
 		return resultMap;
 	}
 
+	public HashMap<String, Object> getDeptList(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("deptList", professorMapper.selectDeptList(map));
+		resultMap.put("result", "success");
+		
+		return resultMap;
+	}
 }

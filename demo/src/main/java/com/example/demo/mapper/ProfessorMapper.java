@@ -16,8 +16,12 @@ public interface ProfessorMapper {
 	//교수 삭제
 	int deleteProfessor(HashMap<String, Object> map);
 
+	//교수 추가
 	int insertProfessor(HashMap<String, Object> map);
-
+	
+	//교수 검색(교수번호-pk로 검색)
 	Professor selectProfessor(HashMap<String, Object> map);
 
+	//학과 목록
+	List<Professor> selectDeptList(HashMap<String, Object> map);
 }

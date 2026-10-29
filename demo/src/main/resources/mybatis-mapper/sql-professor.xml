@@ -12,11 +12,16 @@
 	</delete>
 	
 	<insert id="insertProfessor" parameterType="hashmap">
-		insert into professor(profno, name, position, pay)
-		values(#{profNo}, #{name}, #{position}, #{pay})
+		insert into professor(profno, name, position, pay, deptno)
+		values(#{profNo}, #{name}, #{position}, #{pay}, #{deptNo})
 	</insert>
 	
 	<select id="selectProfessor" parameterType="hashmap" resultType="com.example.demo.model.Professor">
 		select * from professor where profno = #{profNo}
+	</select>
+	
+	<!-- department -->
+	<select id="selectDeptList" parameterType="hashmap" resultType="com.example.demo.model.Professor">
+		select * from department where dname like '%학과'
 	</select>
 </mapper>
