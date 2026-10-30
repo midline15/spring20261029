@@ -8,6 +8,7 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/js/page-change.js"></script>
     <style>
         table, tr, td, th{
             border : 1px solid black;
@@ -25,7 +26,6 @@
 </head>
 <body>
     <div id="app">
-        <!-- html 코드는 id가 app인 태그 안에서 작업 -->
         
     </div>
 </body>
@@ -35,11 +35,10 @@
     const app = Vue.createApp({
         data() {
             return {
-                // 변수 - (key : value)
+
             };
         },
         methods: {
-            // 함수(메소드) - (key : function())
             fnList : function () {
                 let self = this;
                 let param = {};
@@ -55,7 +54,6 @@
             }
         }, // methods
         mounted() {
-            // 처음 시작할 때 실행되는 부분
             let self = this;
         }
     });

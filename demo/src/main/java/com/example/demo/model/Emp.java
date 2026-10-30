@@ -6,5 +6,7 @@ public class Emp {
 	private String eName;
 	private String job;
 	private String sal;
+	//salgrade 테이블
+	private String grade;
 
 }

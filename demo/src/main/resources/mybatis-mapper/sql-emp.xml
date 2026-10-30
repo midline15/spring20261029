@@ -4,7 +4,12 @@
 
 <mapper namespace="com.example.demo.mapper.EmpMapper">
 	<select id="selectEmpList" parameterType="hashmap" resultType="com.example.demo.model.Emp">
-		select * from emp
+		select * from emp e
+		inner join salgrade s on e.sal between losal and hisal
+		<if test="grade != null and grade != ''">
+			where grade = #{grade}
+		</if>
+
 	</select>
 	
 	<delete id="deleteEmp" parameterType="hashmap">
@@ -19,5 +24,10 @@
 	<select id="selectEmp" parameterType="hashmap" resultType="com.example.demo.model.Emp">
 		select * from emp where empno = #{empNo}
 	</select>
+
+	<!-- salgrade -->
+	<select id="selectGradeList" parameterType="hashmap" resultType="com.example.demo.model.Emp">
+		select * from salgrade
+	</select>	
 	
 </mapper>

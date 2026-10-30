@@ -15,8 +15,14 @@ public class ProfessorService {
 	
 	public HashMap<String, Object> getProfessorList(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<>();
-		resultMap.put("list", professorMapper.selectProfessorList(map));
-		resultMap.put("result", "success");
+		try {
+			resultMap.put("list", professorMapper.selectProfessorList(map));
+			resultMap.put("deptList", professorMapper.selectDeptList(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
 		
 		return resultMap;
 	}
@@ -44,6 +50,18 @@ public class ProfessorService {
 		resultMap.put("result", "success");
 		return resultMap;
 	}
+	
+    public HashMap<String, Object> editProfessor(HashMap<String,Object> map) {
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			professorMapper.updateProfessor(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+    }
 
 	public HashMap<String, Object> getDeptList(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<>();

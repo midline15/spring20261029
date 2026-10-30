@@ -15,8 +15,15 @@ public class EmpService {
 	
 	public HashMap<String, Object> getEmpList(HashMap<String, Object> map){
 		HashMap<String, Object> resultMap = new HashMap<>();
-		resultMap.put("list", empMapper.selectEmpList(map));
-		resultMap.put("result", "success");
+		try {
+			
+			resultMap.put("list", empMapper.selectEmpList(map));
+			resultMap.put("gradeList", empMapper.selectGradeList(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			resultMap.put("result", "fail");
+		}
 		
 		return resultMap;
 	}
@@ -31,17 +38,37 @@ public class EmpService {
 
 	public HashMap<String, Object> addEmp(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<>();
-		empMapper.insertEmp(map);
-		
-		resultMap.put("result", "success");
+		try {
+			empMapper.insertEmp(map);		
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+		}
 		return resultMap;
 	}
 
 	public HashMap<String, Object> getEmp(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		
-		resultMap.put("info", empMapper.selectEmp(map));
-		resultMap.put("result", "success");
+		try {
+			resultMap.put("info", empMapper.selectEmp(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	public HashMap<String, Object> getGradeList(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap<>();
+		try {
+			
+			resultMap.put("gradeList", empMapper.selectGradeList(map));
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+		}
+		
 		return resultMap;
 	}
 }

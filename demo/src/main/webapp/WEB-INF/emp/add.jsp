@@ -8,6 +8,7 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="/js/page-change.js"></script>
     <style>
         table, tr, td, th{
             border : 1px solid black;
@@ -93,10 +94,14 @@
                     type: "POST",
                     data: param,
                     success: function (data) {
-                        if(data.info == null || data.info == undefined){
-                            alert("사용 가능");
-                        }else{
-                            alert("이미 사용중인 사원번호")
+                        if(data.result == "success"){
+                            if(data.info == null || data.info == undefined){
+                                alert("사용 가능");
+                            }else{
+                                alert("이미 사용중인 사원번호")
+                            }
+                        } else {
+                            alert("오류가 발생했습니다. \n나중에 다시 시도해주세요.");
                         }
                     }
                 });

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.demo.model.Emp;
+import com.example.demo.model.Professor;
 
 @Mapper
 public interface EmpMapper {
@@ -21,5 +22,8 @@ public interface EmpMapper {
 	
 	//사원 검색(교수번호-pk로 검색)
 	Emp selectEmp(HashMap<String, Object> map);
+
+	//등급 목록
+	List<Emp> selectGradeList(HashMap<String, Object> map);
 
 }
