@@ -11,30 +11,30 @@ import com.example.demo.model.User;
 
 @Service
 public class UserService {
-    @Autowired
-    UserMapper userMapper;
-
-    public HashMap<String, Object> login(HashMap<String, Object> map) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-
-        try {
-            User user = userMapper.selectUser(map);
-            if (user != null) {
-                resultMap.put("message", user.getUserName()+"님 환영합니다.");
-                resultMap.put("loginFlag", true);
-            } else {
-                resultMap.put("message", Message.login_fail);
-                resultMap.put("loginFlag", false);
-            }
-            resultMap.put("result", "success");
-        } catch (Exception e) {
-            resultMap.put("result", "fail");
-            resultMap.put("message", Message.db_err);
-            System.out.println(e.getMessage());
-        }
-
-        return resultMap;
-
-    }
-
+	@Autowired
+	UserMapper userMapper;
+	
+	public HashMap<String, Object> login(HashMap<String, Object> map){
+		HashMap<String, Object> resultMap = new HashMap();
+		
+		try {
+			User user =  userMapper.selectUser(map);
+			if(user != null) {
+				resultMap.put("loginFlg", true);
+				resultMap.put("message", user.getUserName() + "님 환영합니다.");
+			} else {
+				resultMap.put("loginFlg", false);
+				resultMap.put("message", Message.LOGIN_FAIL);
+			}
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.DB_ERR);
+			System.out.println(e.getMessage());
+		}
+		
+		return resultMap;
+	}
+	
 }
