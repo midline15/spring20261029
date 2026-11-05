@@ -7,12 +7,20 @@
 	<select id="selectBoardList" parameterType="hashmap" resultType="com.example.demo.model.Board">
 		SELECT *
 		FROM TBL_BOARD
+		where title like concat('%',#{keyword},'%')
 		limit #{limit} offset #{offset}
+	</select>
+
+	<select id="selectBoard" parameterType="hashmap" resultType="com.example.demo.model.Board">
+		SELECT *
+		FROM TBL_BOARD
+		where boardno = #{boardNo}
 	</select>
 
 	<select id="selectBoardCount" parameterType="hashmap" resultType="int">
 		select count(*)
 		from tbl_board
+		where title like concat('%',#{keyword},'%')
 	</select>
 	
 	<delete id="deleteBoard" parameterType="hashmap">
@@ -28,4 +36,17 @@
 		
 	</delete>
 	
+	<insert id="insertBoard" parameterType="hashmap">
+		insert into tbl_board 
+		values(null, #{title}, #{contents}, 'user01', 0, #{kind}, now(), now())
+	</insert>
+
+	<update id="updateBoard" parameterType="hashmap">
+		update tbl_board set 
+		title = #{title},
+		contents = #{contents},
+		kind = #{kind},
+		udatetime = now()
+		where boardno = #{boardNo}
+	</update>
 </mapper>

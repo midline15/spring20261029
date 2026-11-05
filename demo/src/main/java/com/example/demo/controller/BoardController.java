@@ -22,11 +22,28 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping("/board/list.do")
-	public String test(Model model) throws Exception{
+	public String list(Model model) throws Exception{
 		
 		return "/board/list";
 	}
+	
+	@RequestMapping("/board/add.do")
+	public String add(Model model) throws Exception{
 		
+		return "/board/add";
+	}
+		
+	@RequestMapping("/board/view.do")
+	public String view(Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		model.addAttribute("boardNo", map.get("boardNo"));
+		return "/board/view";
+	}
+	
+	@RequestMapping("/board/edit.do")
+	public String edit(Model model, @RequestParam HashMap<String, Object> map) throws Exception{
+		model.addAttribute("boardNo", map.get("boardNo"));
+		return "/board/edit";
+	}
 	
 	@RequestMapping(value = "/board/list.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
@@ -34,6 +51,16 @@ public class BoardController {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		resultMap = boardService.getBoardList(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+
+	@RequestMapping(value = "/board/view.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String info(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap = boardService.getBoard(map);
 		
 		return new Gson().toJson(resultMap); 
 	}
@@ -63,5 +90,24 @@ public class BoardController {
 		return new Gson().toJson(resultMap); 
 	}
 	
+	@RequestMapping(value = "/board/add.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String add(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap = boardService.addBoard(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
+
+	@RequestMapping(value = "/board/edit.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String edit2(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap = boardService.editBoard(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
 	
 }

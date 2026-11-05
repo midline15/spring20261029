@@ -8,4 +8,9 @@
         where user_id = #{userId} and pwd = #{pwd} 
     </select>
 
+    <insert id="insertUser" parameterType="hashmap">
+        insert into tbl_user(user_id, pwd, user_name, addr)
+        values(#{userId}, #{pwd}, #{userName}, #{addr})
+    </insert>
+
 </mapper>

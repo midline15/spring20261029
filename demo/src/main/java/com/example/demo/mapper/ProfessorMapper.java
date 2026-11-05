@@ -12,6 +12,9 @@ public interface ProfessorMapper {
 	
 	//교수 목록
 	List<Professor> selectProfessorList(HashMap<String, Object> map);
+
+	//교수 수
+	int selectProfessorCount(HashMap<String, Object> map);
 	
 	//교수 삭제
 	int deleteProfessor(HashMap<String, Object> map);

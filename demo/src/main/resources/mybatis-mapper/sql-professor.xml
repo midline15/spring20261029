@@ -13,6 +13,12 @@
 		<if test="position != null and position != ''">
 			and position = #{position}
 		</if>
+		limit #{limit} offset #{offset}
+	</select>
+	<select id="selectProfessorCount" parameterType="hashmap" resultType="int">
+		select count(*)
+		from professor
+		where name like concat('%',#{keyword},'%')
 	</select>
 	
 	<delete id="deleteProfessor" parameterType="hashmap">

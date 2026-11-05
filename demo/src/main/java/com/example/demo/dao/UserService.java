@@ -13,13 +13,13 @@ import com.example.demo.model.User;
 public class UserService {
 	@Autowired
 	UserMapper userMapper;
-	
-	public HashMap<String, Object> login(HashMap<String, Object> map){
+
+	public HashMap<String, Object> login(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap();
-		
+
 		try {
-			User user =  userMapper.selectUser(map);
-			if(user != null) {
+			User user = userMapper.selectUser(map);
+			if (user != null) {
 				resultMap.put("loginFlg", true);
 				resultMap.put("message", user.getUserName() + "님 환영합니다.");
 			} else {
@@ -33,8 +33,25 @@ public class UserService {
 			resultMap.put("message", Message.DB_ERR);
 			System.out.println(e.getMessage());
 		}
-		
+
 		return resultMap;
 	}
-	
+
+	public HashMap<String, Object> addUser(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+
+		try {
+			userMapper.insertUser(map);
+			resultMap.put("message", Message.JOIN_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.DB_ERR);
+			System.out.println(e.getMessage());
+		}
+
+		return resultMap;
+	}
+
 }

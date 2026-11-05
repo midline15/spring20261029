@@ -32,6 +32,20 @@ public class BoardService {
 		}
 		return resultMap;
 	}
+
+	public HashMap<String, Object> getBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			resultMap.put("info", boardMapper.selectBoard(map));
+			resultMap.put("message", Message.DELETE_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.DELETE_FAIL);
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 	
 	public HashMap<String, Object> removeBoard(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap();
@@ -60,5 +74,34 @@ public class BoardService {
 		}
 		return resultMap;
 	}
+
+	public HashMap<String, Object> addBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			int cnt = boardMapper.insertBoard(map);
+			resultMap.put("message", Message.INSERT_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.INSERT_FAIL);
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+	public HashMap<String, Object> editBoard(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			int cnt = boardMapper.updateBoard(map);
+			resultMap.put("message", Message.UPDATE_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.UPDATE_FAIL);
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+	
 	
 }

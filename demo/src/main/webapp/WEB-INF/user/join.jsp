@@ -33,13 +33,14 @@
             비밀번호 : <input type="password" v-model="pwd">
         </div>
         <div>
-            비밀번호 확인 : <input type="text" v-model="pwd2">
+            비밀번호 확인 : <input type="password" v-model="pwd2">
         </div>
         <div>
             이름 : <input type="text" v-model="userName">
         </div>
         <div>
             주소 : <input type="text" v-model="addr">
+            <button @click="fnAddr">주소검색</button>
         </div>
         <div>
             <button @click="fnJoin">가입하기</button>
@@ -49,6 +50,11 @@
 </html>
 
 <script>
+    function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+        console.log("roadFullAddr ==> ", roadFullAddr);
+        window.vueObj.addr = roadFullAddr;
+    }
+
     const app = Vue.createApp({
         data() {
             return {
@@ -108,18 +114,24 @@
                     addr: self.addr
                 };
                 $.ajax({
-                    url: "http://localhost:8080/join.dox",
+                    url: "http://localhost:8080/user/add.dox",
                     dataType: "json",
                     type: "POST",
                     data: param,
                     success: function (data) {
-
+                        alert(data.message);
+                        location.href="login.do";
                     }
                 });
+            },
+            fnAddr: function () {
+                let self = this;
+                window.open("addr.do", "addr", "width=500, height=500");
             }
         }, // methods
         mounted() {
             let self = this;
+            window.vueObj = this;
         }
     });
 
