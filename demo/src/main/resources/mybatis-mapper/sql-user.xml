@@ -9,8 +9,8 @@
     </select>
 
     <insert id="insertUser" parameterType="hashmap">
-        insert into tbl_user(user_id, pwd, user_name, addr)
-        values(#{userId}, #{pwd}, #{userName}, #{addr})
+        insert into tbl_user
+        values(#{userId}, #{pwd}, #{userName}, #{addr}, 'C')
     </insert>
 
 </mapper>

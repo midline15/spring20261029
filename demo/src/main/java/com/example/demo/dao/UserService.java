@@ -19,6 +19,7 @@ public class UserService {
 
 		try {
 			User user = userMapper.selectUser(map);
+			
 			if (user != null) {
 				resultMap.put("loginFlg", true);
 				resultMap.put("message", user.getUserName() + "님 환영합니다.");
@@ -28,7 +29,7 @@ public class UserService {
 			}
 			resultMap.put("result", "success");
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			resultMap.put("result", "fail");
 			resultMap.put("message", Message.DB_ERR);
 			System.out.println(e.getMessage());
@@ -41,13 +42,14 @@ public class UserService {
 		HashMap<String, Object> resultMap = new HashMap();
 
 		try {
+
 			userMapper.insertUser(map);
 			resultMap.put("message", Message.JOIN_SUCCESS);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			resultMap.put("result", "fail");
-			resultMap.put("message", Message.DB_ERR);
+			resultMap.put("message", Message.JOIN_FAIL);
 			System.out.println(e.getMessage());
 		}
 
