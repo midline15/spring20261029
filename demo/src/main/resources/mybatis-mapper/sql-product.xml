@@ -4,8 +4,11 @@
 <mapper namespace="com.example.demo.mapper.ProductMapper">
 
     <select id="selectProductList" parameterType="hashmap" resultType="com.example.demo.model.Product"> 
-        select * from product
+        select *, 
+            round(price) as convert_price 
+        from product
         where 1=1
+            and status like 'SALE'
         <if test="category != '' and category != null">
             and category = #{category}
         </if>
@@ -17,8 +20,22 @@
         </choose>
     </select>
 
-    <select id="selectCategoryList" parameterType="hashmap" resultType="com.example.demo.model.Product">
-        select distinct category from product
+    <select id="selectProduct" parameterType="hashmap" resultType="com.example.demo.model.Product">
+        select *, 
+            round(price) as convert_price
+        from product
+        where product_id = #{productId}
     </select>
 
+    <select id="selectCategoryList" parameterType="hashmap" resultType="com.example.demo.model.Product">
+        select distinct category 
+        from product
+    </select>
+
+    <update id="stopProduct" parameterType="hashmap">
+        update product set
+            status = 'STOP'
+        where product_id = #{productId}
+    </update>
+    
 </mapper>

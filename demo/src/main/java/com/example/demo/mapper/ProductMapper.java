@@ -15,5 +15,10 @@ public interface ProductMapper {
     // 카테고리 목록
     List<Product> selectCategoryList(HashMap<String, Object> map);
 
+    // 제품 상세
+    Product selectProduct(HashMap<String,Object> map);
+
+    void stopProduct(HashMap<String,Object> map);
+
     
 }

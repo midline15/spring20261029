@@ -34,7 +34,7 @@
             }
 
             tr:nth-child(even) {
-                background-color: azure;
+                background-color: rgb(197, 197, 197);
             }
 
             #paging {
@@ -76,9 +76,7 @@
                     <option v-for="item in categoryList" :value="item.category"> {{item.category}}</option>
                 </select>
                 |
-                <label><input type="radio" v-model="order" value="1" @change="fnList">낮은가격순</label>
-                <label><input type="radio" v-model="order" value="2" @change="fnList">높은가격순</label>
-                <label><input type="radio" v-model="order" value="3" @change="fnList">등록순</label>
+                <label v-for="item in orderList"><input type="radio" v-model="order" :value="item.key" @change="fnList">{{item.name}}</label>
             </div>
             <table>
                 <tr>
@@ -91,13 +89,14 @@
                 </tr>
                 <tr v-for="item in list">
                     <td>{{item.productId}}</td>
-                    <td>{{item.productName}}</td>
+                    <td><a href="javascript:;" @click="fnView(item.productId)">{{item.productName}}</a></td>
                     <td>{{item.brand}}</td>
                     <td>{{item.category}}</td>
-                    <td>{{item.price}}</td>
+                    <td>₩{{item.convertPrice}}</td>
                     <td>{{item.releaseDate}}</td>
                 </tr>
             </table>
+            
         </div>
     </div>
 </body>
@@ -110,7 +109,12 @@
                 list: "",
                 order: 0,
                 categoryList: '',
-                category:''
+                category:'',
+                orderList: [
+                    {key: 1, name: '낮은가격순'},
+                    {key: 2, name: '높은가격순'},
+                    {key: 3, name: '등록순'}
+                ]
 
             };
         },
@@ -132,6 +136,9 @@
                         self.categoryList = data.categoryList;
                     }
                 });
+            },
+            fnView(productId){
+                pageChange("view.do",{productId: productId});
             }
         }, // methods
         mounted() {
