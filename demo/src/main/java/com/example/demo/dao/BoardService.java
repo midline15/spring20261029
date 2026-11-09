@@ -10,10 +10,15 @@ import com.example.demo.common.Message;
 import com.example.demo.mapper.BoardMapper;
 import com.example.demo.model.Board;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class BoardService {
 	@Autowired
 	BoardMapper boardMapper;
+
+	@Autowired 
+	HttpSession session;
 	
 	public HashMap<String, Object> getBoardList(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap();
@@ -37,6 +42,7 @@ public class BoardService {
 		HashMap<String, Object> resultMap = new HashMap();
 		try {
 			resultMap.put("info", boardMapper.selectBoard(map));
+			resultMap.put("fileList", boardMapper.selectBoardFile(map));
 			resultMap.put("message", Message.DELETE_SUCCESS);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -78,7 +84,28 @@ public class BoardService {
 	public HashMap<String, Object> addBoard(HashMap<String, Object> map) {
 		HashMap<String, Object> resultMap = new HashMap();
 		try {
-			int cnt = boardMapper.insertBoard(map);
+			if(session.getAttribute("sessionId") != null){
+				map.put("sessionId", session.getAttribute("sessionId"));
+				int cnt = boardMapper.insertBoard(map);
+				resultMap.put("boardNo", map.get("boardNo"));
+				resultMap.put("message", Message.INSERT_SUCCESS);
+				resultMap.put("result", "success");
+			} else {
+				resultMap.put("message", "세션이 만료되었습니다.");
+				resultMap.put("result", "fail");
+			}
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.INSERT_FAIL);
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
+
+	public HashMap<String, Object> addBoardFile(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			int cnt = boardMapper.insertBoardFile(map);
 			resultMap.put("message", Message.INSERT_SUCCESS);
 			resultMap.put("result", "success");
 		} catch (Exception e) {

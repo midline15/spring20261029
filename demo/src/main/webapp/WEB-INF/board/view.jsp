@@ -37,6 +37,7 @@
             <h3>작성자 : {{info.userId}} | 조회수 : {{info.cnt}}</h3>
             <hr>
             <h4>내용</h4>
+            <img v-for="item in fileList" :src="item.filePath">
             <div v-html="info.contents"></div>
             <hr>
             <div>
@@ -52,7 +53,8 @@
             data() {
                 return {
                     boardNo: "${boardNo}",
-                    info: ""
+                    info: "",
+                    fileList: ""
                 };
             },
             methods: {
@@ -68,7 +70,7 @@
                         data: param,
                         success: function (data) {
                             self.info = data.info;
-                            console.log(self.info);
+                            self.fileList = data.fileList;
                         }
                     });
                 },

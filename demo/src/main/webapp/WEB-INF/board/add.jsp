@@ -61,11 +61,12 @@
                 padding: 10px 10px 50px 10px;
             }
 
-            .btn-area{
+            .btn-area {
                 text-align: center;
                 margin-top: 15px;
             }
-            .btn-area button{
+
+            .btn-area button {
                 height: 30px;
                 width: 100px;
                 margin: 5px;
@@ -101,7 +102,7 @@
                     <tr>
                         <th>첨부파일</th>
                         <td>
-                            <input type="file">
+                            <input type="file" id="file1" name="file1" accept=".jpg, .png">
                         </td>
                     </tr>
                     <tr>
@@ -133,11 +134,12 @@
             methods: {
                 fnAdd: function () {
                     let self = this;
-                    
+
                     let param = {
                         kind: self.kind,
                         title: self.title,
-                        contents: self.contents
+                        contents: self.contents,
+                        sessionId: "${sessionId}"
                     };
                     $.ajax({
                         url: "http://localhost:8080/board/add.dox",
@@ -145,8 +147,36 @@
                         type: "POST",
                         data: param,
                         success: function (data) {
+                            if ($("#file1")[0].files[0] != null || $("#file1")[0].files[0] != undefined) {
+                                self.fnFileAdd(data.boardNo);
+                            } else {
+                                alert(data.message);
+                                location.href = "list.do";
+                            }
+                        }
+                    });
+                },
+                fnFileAdd: function (boardNo) {
+                    var self = this;
+                    console.log($("#file1")[0].files[0]);
+                    var form = new FormData();
+                    form.append("file1", $("#file1")[0].files[0]);
+                    form.append("idx", boardNo);
+                    self.upload(form);
+                },
+                // 파일 업로드
+                upload: function (form) {
+                    var self = this;
+                    console.log(form);
+                    $.ajax({
+                        url: "/board/fileUpload.dox",
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        data: form,
+                        success: function (data) {
                             alert(data.message);
-                            location.href="list.do";
+                            location.href = "list.do";
                         }
                     });
                 }

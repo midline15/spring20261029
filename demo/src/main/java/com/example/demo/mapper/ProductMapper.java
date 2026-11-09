@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.demo.model.File;
 import com.example.demo.model.Product;
 
 @Mapper 
@@ -19,6 +20,12 @@ public interface ProductMapper {
     Product selectProduct(HashMap<String,Object> map);
 
     void stopProduct(HashMap<String,Object> map);
+
+    int insertProduct(HashMap<String, Object> map);
+
+    int insertProductFile(HashMap<String,Object> map);
+
+    List<File> selectProductFile(HashMap<String,Object> map);
 
     
 }

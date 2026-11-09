@@ -5,7 +5,7 @@
 
     <select id="selectUser" parameterType="hashmap" resultType="com.example.demo.model.User"> 
         select * from tbl_user 
-        where user_id = #{userId} and pwd = #{pwd} 
+        where user_id = #{userId} 
     </select>
 
     <insert id="insertUser" parameterType="hashmap">

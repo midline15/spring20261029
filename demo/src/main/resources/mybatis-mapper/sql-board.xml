@@ -17,6 +17,12 @@
 		where boardno = #{boardNo}
 	</select>
 
+	<select id="selectBoardFile" parameterType="hashmap" resultType="com.example.demo.model.File">
+		SELECT *
+		FROM TBL_BOARD_File
+		where boardno = #{boardNo}
+	</select>
+
 	<select id="selectBoardCount" parameterType="hashmap" resultType="int">
 		select count(*)
 		from tbl_board
@@ -36,9 +42,10 @@
 		
 	</delete>
 	
-	<insert id="insertBoard" parameterType="hashmap">
+	<insert id="insertBoard" parameterType="hashmap" 
+	useGeneratedKeys="true" keyColumn="boardno" keyProperty="boardNo"> 
 		insert into tbl_board 
-		values(null, #{title}, #{contents}, 'user01', 0, #{kind}, now(), now())
+		values(null, #{title}, #{contents}, #{sessionId}, 0, #{kind}, now(), now())
 	</insert>
 
 	<update id="updateBoard" parameterType="hashmap">
@@ -49,4 +56,9 @@
 		udatetime = now()
 		where boardno = #{boardNo}
 	</update>
+
+	<insert id="insertBoardFile" parameterType="hashmap">
+		insert into tbl_board_file
+		values(null, #{idx}, #{path}, #{fileName}, #{orgName}, #{size}, #{extName})
+	</insert>
 </mapper>

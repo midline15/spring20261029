@@ -27,6 +27,12 @@
         where product_id = #{productId}
     </select>
 
+    <select id="selectProductFile" parameterType="hashmap" resultType="com.example.demo.model.File">
+		SELECT *
+		FROM product_File
+		where product_id = #{productId}
+	</select>
+
     <select id="selectCategoryList" parameterType="hashmap" resultType="com.example.demo.model.Product">
         select distinct category 
         from product
@@ -37,5 +43,16 @@
             status = 'STOP'
         where product_id = #{productId}
     </update>
+
+    <insert id="insertProduct" parameterType="hashmap" 
+	useGeneratedKeys="true" keyColumn="product_id" keyProperty="productId"> 
+		insert into product
+		values(null, #{productName}, '브랜드', #{category}, 'test', 10000, 10, #{description}, now(), 'SALE', now(), now())
+	</insert>
+
+    <insert id="insertProductFile" parameterType="hashmap">
+		insert into product_file
+		values(null, #{idx}, #{path}, #{fileName}, #{orgName}, #{size}, #{extName})
+	</insert>
     
 </mapper>

@@ -73,8 +73,8 @@
                         data: param,
                         success: function (data) {
                             alert(data.message)
-                            if (data.loginFlag) {
-                                location.href = "/professor/list.do";
+                            if (data.loginFlg) {
+                                location.href = data.url;
                             }
                         }
                     });
