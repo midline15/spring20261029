@@ -150,4 +150,14 @@ public class ProductController {
 
 		return fileName;
 	}
+
+	@RequestMapping(value = "/product/total-order-price.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String totalOrderPrice(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap = productService.getTotalOrderPriceList(map);
+		
+		return new Gson().toJson(resultMap); 
+	}
 }

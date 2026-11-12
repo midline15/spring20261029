@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.AreaMapper">
+    
+	<select id="selectSiList" parameterType="hashmap" resultType="com.example.demo.model.Area">
+        select 
+	        distinct si
+        from area;
+    </select>
+
+    <select id="selectGuList" parameterType="hashmap" resultType="com.example.demo.model.Area">
+        select 
+	        distinct gu
+        from area
+        where si = #{si} 
+        and gu != ''
+    </select>
+
+    <select id="selectDongList" parameterType="hashmap" resultType="com.example.demo.model.Area">
+        select 
+	        distinct dong
+        from area
+        where si = #{si} 
+        and gu = #{gu}
+        and dong != ''
+    </select>
+</mapper>

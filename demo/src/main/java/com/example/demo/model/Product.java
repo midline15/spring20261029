@@ -12,4 +12,6 @@ public class Product {
     private String description;
     private String releaseDate;
     private int convertPrice;
+
+    private String totalPrice;
 }

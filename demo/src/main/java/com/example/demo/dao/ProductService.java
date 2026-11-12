@@ -88,4 +88,18 @@ public class ProductService {
 		}
 		return resultMap;
     }
+
+	public HashMap<String, Object> getTotalOrderPriceList(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			List<Product> list = productMapper.selectOrderPriceByProductName(map);
+
+			resultMap.put("list", list);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

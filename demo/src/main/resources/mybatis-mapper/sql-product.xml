@@ -54,5 +54,14 @@
 		insert into product_file
 		values(null, #{idx}, #{path}, #{fileName}, #{orgName}, #{size}, #{extName})
 	</insert>
+
+    <select id="selectOrderPriceByProductName" parameterType="hashmap" resultType="com.example.demo.model.Product">
+        select 
+	        product_name, 
+	        sum(order_price) as total_price
+        from product_orders o
+        join product p on o.product_id = p.PRODUCT_ID
+        group by PRODUCT_NAME;
+    </select>
     
 </mapper>

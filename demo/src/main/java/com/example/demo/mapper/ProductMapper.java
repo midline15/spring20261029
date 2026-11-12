@@ -27,5 +27,7 @@ public interface ProductMapper {
 
     List<File> selectProductFile(HashMap<String,Object> map);
 
+    List<Product> selectOrderPriceByProductName(HashMap<String,Object> map);
+
     
 }
