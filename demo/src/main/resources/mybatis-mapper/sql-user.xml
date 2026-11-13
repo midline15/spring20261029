@@ -13,4 +13,8 @@
         values(#{userId}, #{pwd}, #{userName}, #{addr}, 'C')
     </insert>
 
+    <update id="updatePwd" parameterType="hashmap">
+        update tbl_user set pwd = #{pwd} where user_id = #{userId}
+    </update>
+
 </mapper>

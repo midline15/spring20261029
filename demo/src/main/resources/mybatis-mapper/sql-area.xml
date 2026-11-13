@@ -6,21 +6,23 @@
     
 	<select id="selectSiList" parameterType="hashmap" resultType="com.example.demo.model.Area">
         select 
-	        distinct si
-        from area;
+	        *
+        from area
+        where si != '' and gu = ''
     </select>
 
     <select id="selectGuList" parameterType="hashmap" resultType="com.example.demo.model.Area">
         select 
-	        distinct gu
+	        *
         from area
         where si = #{si} 
         and gu != ''
+        and dong = ''
     </select>
 
     <select id="selectDongList" parameterType="hashmap" resultType="com.example.demo.model.Area">
         select 
-	        distinct dong
+	        *
         from area
         where si = #{si} 
         and gu = #{gu}

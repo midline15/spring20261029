@@ -35,9 +35,11 @@
                 <option value="">:: 선택 ::</option>
                 <option v-for="item in guList" :value="item.gu">{{item.gu}}</option>
             </select>
-            <select v-model="dong">
+            <select v-model="dong" @change="fnGetWeather">
                 <option value="">:: 선택 ::</option>
-                <option v-for="item in dongList" :value="item.dong">{{item.dong}}</option>
+                <option v-for="item in dongList" :value="item">
+                    {{item.dong}}
+                </option>
             </select>
         </div>
     </div>
@@ -53,7 +55,9 @@
                 dongList: "",
                 si: "",
                 gu: "",
-                dong: ""
+                dong: "",
+                nx: "",
+                ny: "",
             };
         },
         methods: {
@@ -111,17 +115,15 @@
             },
             fnGetWeather : function () {
                 let self = this;
-                self.dong = "";
-                self.dongList = "";
                 let param = {
-                    serviceKey : decodeURI("일반 인증키"),
+                    serviceKey : decodeURIComponent("6b846af1debe4a608940aae218c9ab506aba135f6481e2df85bc8cad03d81af7"),
                     pageNo : 1,
                     numOfRows : 1000,
                     dataType : "JSON",
-                    base_date : "20261112",
-                    base_time : "1600",
-                    nx : 55,
-                    ny : 125
+                    base_date : "20261113",
+                    base_time : "0900",
+                    nx : self.dong.nx,
+                    ny : self.dong.ny
                 };
                 $.ajax({
                     url: "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst",
@@ -129,7 +131,22 @@
                     type: "GET",
                     data: param,
                     success: function (data) {
-                        console.log(data)
+                        console.log(data);
+                        let items = data.response.body.items.item;
+                        for(let i = 0; i < items.length; i++){
+                            let item = items[i];
+                            if(item.category == "T1H"){
+                                // 기온에 대한 처리, 단위 : ℃
+                                console.log("기온 ===> ", item.obsrValue)
+                            }
+                            if(item.category == "RN1"){
+                                // 강수에 대한 처리, 단위 : ℃
+                                console.log("강수량 ===> ", item.obsrValue)
+                            }
+                            if(item.category == "PTY"){
+                                console.log("강수형태 ===> ", item.obsrValue)
+                            }
+                        }
                     }
                 });
             }
@@ -137,7 +154,6 @@
         mounted() {
             let self = this;
             self.fnSiList();
-            self.fnGetWeather();
         }
     });
 

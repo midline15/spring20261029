@@ -45,6 +45,9 @@
                 <button>회원가입</button>
                 <a :href="location"><img src="/img/kakao.png" alt=""></a>
             </div>
+            <div>
+                <a href="password.do"><button>비밀번호찾기</button></a>
+            </div>
         </div>
     </body>
 

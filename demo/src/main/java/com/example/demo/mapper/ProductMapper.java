@@ -29,5 +29,7 @@ public interface ProductMapper {
 
     List<Product> selectOrderPriceByProductName(HashMap<String,Object> map);
 
+    int insertOrder(HashMap<String,Object> map);
+
     
 }

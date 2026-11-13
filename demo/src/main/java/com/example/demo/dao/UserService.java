@@ -97,4 +97,38 @@ public class UserService {
 		return resultMap;
 	}
 
+	public HashMap<String, Object> editPwd(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+
+		try {
+
+			// 비밀번호 암호화(해시)
+			String hashPwd = passwordEncoder.encode((String) map.get("pwd"));
+			map.put("pwd", hashPwd);
+
+			userMapper.updatePwd(map);
+			resultMap.put("message", Message.JOIN_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.JOIN_FAIL);
+			System.out.println(e.getMessage());
+		}
+
+		return resultMap;
+	}
+
+	public String getPhone(HashMap<String, Object> map) {
+
+		try {
+			return userMapper.selectUser(map).getPhone();
+		} catch (Exception e) {
+
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+	}
+
 }

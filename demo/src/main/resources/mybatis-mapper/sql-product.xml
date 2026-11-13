@@ -63,5 +63,11 @@
         join product p on o.product_id = p.PRODUCT_ID
         group by PRODUCT_NAME;
     </select>
+
+    <insert id="insertOrder" parameterType="hashmap" 
+	useGeneratedKeys="true" keyColumn="product_id" keyProperty="productId"> 
+		insert into product_orders
+		values(null, #{sessionId}, #{productId}, 1, #{orderPrice}, 'ORDERED', now(), '인천', 'DONE', #{merchantUid})
+	</insert>
     
 </mapper>

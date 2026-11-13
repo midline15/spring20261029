@@ -102,4 +102,19 @@ public class ProductService {
 		}
 		return resultMap;
 	}
+
+	public HashMap<String, Object> addOrder(HashMap<String, Object> map) {
+		HashMap<String, Object> resultMap = new HashMap();
+		try {
+			int cnt = productMapper.insertOrder(map);
+			
+			resultMap.put("message", Message.INSERT_SUCCESS);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "fail");
+			resultMap.put("message", Message.INSERT_FAIL);
+			System.out.println(e.getMessage());
+		}
+		return resultMap;
+	}
 }

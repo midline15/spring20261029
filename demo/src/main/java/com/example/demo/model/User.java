@@ -11,4 +11,5 @@ public class User {
     private String userName;
     private String addr;
     private String role;
+    private String phone;
 }
